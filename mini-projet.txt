@@ -1,0 +1,89 @@
+#include <stdio.h>
+#define SMILL 100  
+
+int totallivre = 0; 
+char titre[SMILL][50], auteur[SMILL][50],recherche[25];
+int quantite[SMILL];
+float prix[SMILL];
+char comparaison[50];
+
+int main() {
+    int choix;
+    
+    do {
+        printf("Menu:\n");
+        printf("1- Ajouter un livre au stock.\n");
+        printf("2- Afficher tous les livres disponibles.\n");
+        printf("3- Rechercher un livre par son titre.\n");
+        printf("4- Mettre à jour la quantité d'un livre.\n");
+        printf("5- Supprimer un livre du stock.\n");
+        printf("6- Afficher le nombre total de livres en stock.\n");
+        printf("7- Quitter\n");
+        printf("Entrez votre choix : ");
+        scanf("%d", &choix);
+
+        switch (choix) {
+            case 1:
+                if (totallivre < SMILL) {
+                    printf("__ Ajouter un livre au stock __\n");
+                    printf("Titre : ");
+                    scanf("%s", titre[totallivre]);  
+                    printf("Auteur : ");
+                    scanf("%s", auteur[totallivre]); 
+                    printf("Prix : ");
+                    scanf("%f", &prix[totallivre]);
+                    printf("Quantité : ");
+                    scanf("%d", &quantite[totallivre]);
+                    totallivre++;
+                    printf("Livre ajoute :) \n");
+                } else {
+                    printf("Stock plein, impossible d'ajouter plus de livres\n");
+                }
+                break;
+                case 2:
+                    printf("afficher tous les livres disponible :  \n");
+                    printf("\n");
+                    
+                    for(int i = 0; i < totallivre;i++ ){
+                        printf("_____________nbr______________\n");
+                        printf("%s \n",titre[i]);
+                        printf("%s \n",auteur[i]);
+                        printf("%.2f DH\n",prix[i]);
+                        printf("%d \n",quantite[i]);
+                        printf("__________________________________\n");
+                    }
+                break;
+                case 3:
+                printf("entrer votre titre prefere : \n");
+                scanf("%d",titre);
+                for(int i = 0;i< totallivre ; i++){
+                    printf("%s \n",titre[i]);
+                }
+                break;
+                case 4:
+                     printf("titre du livre a mettre a jour : ");
+                     scanf("%d",titre);
+                   for(int i =0; i < totallivre;i++){
+                      printf("nouveau quantite en stock : ");
+                      scanf("%d",&quantite[i]);
+                      printf("mise a jour de quantite en stock terminee :) \n");
+                   }
+                   break;
+                   case 5:
+                   
+                   case 6:
+                     printf("le nombre total de livres en stock :%d\n", totallivre);
+                     printf("\n");
+                     break;
+                   
+                case 7:
+                  printf("Quitter le programme :( \n");
+                  break;
+
+                default:
+                  printf("Choix invalide  try again hh \n");
+                  break;
+        }
+    } while (choix != 7);  
+    return 0; 
+}
