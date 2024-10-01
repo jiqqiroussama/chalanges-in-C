@@ -1,0 +1,150 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_CONTACTS 100
+#define MAX_NAME_LENGTH 50
+#define MAX_PHONE_LENGTH 15
+#define MAX_EMAIL_LENGTH 50
+
+// Définition de la structure pour stocker un contact
+typedef struct {
+    char nom[MAX_NAME_LENGTH];
+    char telephone[MAX_PHONE_LENGTH];
+    char email[MAX_EMAIL_LENGTH];
+} Contact;
+
+// Prototypes des fonctions
+void ajouterContact(Contact contacts[], int *nbContacts);
+void modifierContact(Contact contacts[], int nbContacts);
+void supprimerContact(Contact contacts[], int *nbContacts);
+void afficherContacts(Contact contacts[], int nbContacts);
+void rechercherContact(Contact contacts[], int nbContacts);
+
+int main() {
+    Contact contacts[MAX_CONTACTS];
+    int nbContacts = 0;
+    int choix;
+
+    do {
+        printf("\n Menu de liste des choix de contacts : \n");
+        printf("1- Ajouter un contact\n");
+        printf("2- Modifier un contact\n");
+        printf("3- Supprimer un contact\n");
+        printf("4- Afficher tous les contacts\n");
+        printf("5- Rechercher un contact\n");
+        printf("0- Quitter\n");
+        printf("Votre choix : ");
+        scanf("%d", &choix);
+
+        switch (choix) {
+            case 1:
+                ajouterContact(contacts, &nbContacts);
+                break;
+            case 2:
+                modifierContact(contacts, nbContacts);
+                break;
+            case 3:
+                supprimerContact(contacts, &nbContacts);
+                break;
+            case 4:
+                afficherContacts(contacts, nbContacts);
+                break;
+            case 5:
+                rechercherContact(contacts, nbContacts);
+                break;
+            case 0:
+                printf("a bientot hh \n");
+                break;
+            default:
+                printf("Choix pas disponible, try again hhh\n");
+        }
+    } while (choix != 0);
+
+    return 0;
+}
+
+// Fonction pour ajouter un contact
+void ajouterContact(Contact contacts[], int *nbContacts) {
+    if (*nbContacts >= MAX_CONTACTS) {
+        printf("liste de contact est stocke :(\n");
+        return;
+    }
+    printf("entrer le nom du contact: ");
+    scanf("%s", contacts[*nbContacts].nom);
+    printf("entrer le numero de telephone: ");
+    scanf("%s", contacts[*nbContacts].telephone);
+    printf("entrer un adresse e-mail: ");
+    scanf("%s", contacts[*nbContacts].email);
+    (*nbContacts)++;
+    printf("Contact a ajoute :) \n");
+}
+// Fonction pour modifier un contact
+void modifierContact(Contact contacts[], int nbContacts) {
+    char nom[MAX_NAME_LENGTH];
+    printf("entrer le contact que tu peux modifier  : ");
+    scanf("%s", nom);
+
+    for (int i = 0; i < nbContacts; i++) {
+        if (strcmp(contacts[i].nom, nom) == 0) {
+            printf("entrer un nouveau nom pour ce contact : ");
+            scanf("%s",contacts[i].nom);
+            printf("entrer la modification de numero de telephone ");
+            scanf("%s", contacts[i].telephone);
+            printf("entrer votre modification ou un nouveau  adresse e-mail: ");
+            scanf("%s", contacts[i].email);
+            printf("mr,mrs le contact etait modifié ;) \n");
+            return;
+        }
+    }
+    printf(" cet contact pas disponible pour le moment  \n");
+}
+
+// Fonction pour supprimer un contact
+void supprimerContact(Contact contacts[], int *nbContacts) {
+    char nom[MAX_NAME_LENGTH];
+    printf("entrer le contact que tu choisi supprimee ");
+    scanf("%s", nom);
+
+    for (int i = 0; i < *nbContacts; i++) {
+        if (strcmp(contacts[i].nom, nom) == 0) {
+            for (int j = i; j < *nbContacts - 1; j++) {
+                contacts[j] = contacts[j + 1];
+            }
+            (*nbContacts)--;
+            printf("votre choix est supprime :( \n");
+            return;
+        }
+    }
+    printf("cet contact pas disponible pour le moment \n");
+}
+
+// Fonction pour afficher tous les contacts
+void afficherContacts(Contact contacts[], int nbContacts) {
+    if (nbContacts == 0) {
+        printf("La liste  du contacts est vide \n");
+        return;
+    }
+    for (int i = 0; i < nbContacts; i++) {
+        printf("\nContact %d:\n", i + 1);
+        printf("Nom: %s\n", contacts[i].nom);
+        printf("Telephone: %s\n", contacts[i].telephone);
+        printf("Email: %s\n", contacts[i].email);
+    }
+}
+// Fonction pour rechercher un contact
+void rechercherContact(Contact contacts[], int nbContacts) {
+    char nom[MAX_NAME_LENGTH];
+    printf("entrer le nom du contact pour l`operation de rechercher ");
+    scanf("%s", nom);
+
+    for (int i = 0; i < nbContacts; i++) {
+        if (strcmp(contacts[i].nom, nom) == 0) {
+            printf("\n Details du contact: \n");
+            printf("Nom: %s\n", contacts[i].nom);
+            printf("Téléphone: %s\n", contacts[i].telephone);
+            printf("Email: %s\n", contacts[i].email);
+            return;
+        }
+    }
+    printf("ce contact pas disponible pour le moment :( \n");
+}
